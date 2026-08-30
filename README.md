@@ -1,6 +1,6 @@
 # Homescreen Template (Kotlin & Jetpack Compose 2026)
 
-A modern, production-ready Android Homescreen Template built with 100% Kotlin and Jetpack Compose, featuring Material 3, dynamic color (Material You), edge-to-edge support, and Navigation Compose.
+A modern Android Homescreen Template built with 100% Kotlin and Jetpack Compose, featuring Material 3, dynamic color (Material You), edge-to-edge support, and Navigation Compose.
 
 ## App Preview
 
