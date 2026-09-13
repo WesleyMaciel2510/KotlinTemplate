@@ -109,6 +109,11 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     
+    // Biometric
+    implementation(libs.androidx.biometric)
+    implementation(libs.androidx.biometric.ktx)
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    
     implementation(libs.androidx.hilt.navigation.compose)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
