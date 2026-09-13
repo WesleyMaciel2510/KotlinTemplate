@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Homescreen Template</string>
+    <string name="app_name">Kotlin</string>
     <string name="home_tab">Home</string>
     <string name="search_tab">Search</string>
     <string name="favorites_tab">Favorites</string>

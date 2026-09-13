@@ -21,10 +21,18 @@ class BaselineProfileGenerator {
             includeInStartupProfile = true
         ) {
             // Start the app
-            pressHome()
             startActivityAndWait()
-
-            // Scroll or interact with Home screen to capture UI paths
+            
+            // Wait for the UI to be drawn
+            device.waitForIdle()
+            
+            // Scroll through Home screen content to capture UI paths
+            // The Home screen has a LazyColumn that we can scroll
+            device.executeShellCommand("input swipe 500 1500 500 500 300")
+            device.waitForIdle()
+            
+            // Additional scroll interactions
+            device.executeShellCommand("input swipe 500 1500 500 500 300")
             device.waitForIdle()
         }
     }
