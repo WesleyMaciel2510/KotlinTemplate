@@ -1,46 +1,46 @@
 package com.template.app.navigation
 
-import com.template.app.navigation.Screen
+import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
+import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.Assert.*
 
 class ScreenTest {
 
     @Test
     fun screenHasFourDestinations() {
-        val screens = Screen.values()
+        val screens = Screen.entries
         assertEquals(4, screens.size)
     }
 
     @Test
     fun homeScreenHasCorrectProperties() {
         assertEquals("home", Screen.Home.route)
-        assertEquals(Home(), Screen.Home.icon)
+        assertEquals(Icons.Default.Home, Screen.Home.icon)
         assertEquals("Home", Screen.Home.contentDescription)
     }
 
     @Test
     fun searchScreenHasCorrectProperties() {
         assertEquals("search", Screen.Search.route)
-        assertEquals(Search(), Screen.Search.icon)
+        assertEquals(Icons.Default.Search, Screen.Search.icon)
         assertEquals("Search", Screen.Search.contentDescription)
     }
 
     @Test
     fun favoritesScreenHasCorrectProperties() {
         assertEquals("favorites", Screen.Favorites.route)
-        assertEquals(Favorite(), Screen.Favorites.icon)
+        assertEquals(Icons.Default.Favorite, Screen.Favorites.icon)
         assertEquals("Favorites", Screen.Favorites.contentDescription)
     }
 
     @Test
     fun profileScreenHasCorrectProperties() {
         assertEquals("profile", Screen.Profile.route)
-        assertEquals(Person(), Screen.Profile.icon)
+        assertEquals(Icons.Default.Person, Screen.Profile.icon)
         assertEquals("Profile", Screen.Profile.contentDescription)
     }
 }

@@ -24,6 +24,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.template.app.navigation.Screen
+import com.template.app.ui.navigation.QrCodeRoute
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,7 +36,7 @@ fun MainScreen() {
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(text = "Homescreen Template", fontSize = 20.sp) },
+                title = { Text(text = "Kotlin", fontSize = 20.sp) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surfaceContainer,
                     titleContentColor = MaterialTheme.colorScheme.onSurface
@@ -77,7 +78,11 @@ fun MainScreen() {
             .padding(innerPadding)
         ) {
             composable(route = Screen.Home.route) {
-                HomeContentScreen()
+                HomeContentScreen(
+                    onNavigateToQrScanner = {
+                        navController.navigate("qrcode")
+                    }
+                )
             }
             composable(route = Screen.Search.route) {
                 SearchContentScreen()
@@ -87,6 +92,13 @@ fun MainScreen() {
             }
             composable(route = Screen.Profile.route) {
                 ProfileContentScreen()
+            }
+            composable(route = "qrcode") {
+                com.template.app.qrcode.QrCodeReaderScreen(
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    }
+                )
             }
         }
     }

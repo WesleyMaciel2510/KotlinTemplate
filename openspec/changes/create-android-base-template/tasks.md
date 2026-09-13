@@ -40,7 +40,7 @@
 
 ## 6. Baseline Profiles
 
-- [ ] 6.1 Create `baselineprofile/src/main/java/com/template/app/baselineprofile/BaselineProfileGenerator.kt` with `@RunWith(AndroidJUnit4::class)` class, `BaselineProfileRule` targeting `TemplateApp`, `collectBaselineProfile` test covering `HomeScreen` startup and scroll, and verify generator compiles
+- [x] 6.1 Create `baselineprofile/src/main/java/com/template/app/baselineprofile/BaselineProfileGenerator.kt` with `@RunWith(AndroidJUnit4::class)` class, `BaselineProfileRule` targeting `TemplateApp`, `collectBaselineProfile` test covering `HomeScreen` startup and scroll, and verify generator compiles
 - [ ] 6.2 Verify `androidx.baselineprofile` plugin applied to `:app` module generates `src/main/baseline-prof.txt` when running `./gradlew.bat :baselineprofile:connectedCheck` (requires device/emulator)
 - [ ] 6.3 Verify release build (`./gradlew.bat :app:assembleRelease`) includes baseline profile in APK/AAB
 
