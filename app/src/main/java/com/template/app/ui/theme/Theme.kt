@@ -3,29 +3,33 @@ package com.template.app.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.template.app.data.preferences.ThemePreference
 
+/** Root theme composable for Material 3 and the app-specific color tokens. */
 @Composable
 fun TemplateAppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    themePreference: ThemePreference = ThemePreference.System,
     content: @Composable () -> Unit
 ) {
-    val context = LocalContext.current
-    val colorScheme = when {
-        darkTheme -> dynamicDarkColorScheme(context)
-        else -> dynamicLightColorScheme(context)
+    val systemDark = isSystemInDarkTheme()
+    val darkTheme = when (themePreference) {
+        ThemePreference.Dark -> true
+        ThemePreference.Light -> false
+        ThemePreference.System -> systemDark
     }
 
+    val colorScheme = if (darkTheme) appDarkColorScheme else appLightColorScheme
+    val appColors = if (darkTheme) AppColors.dark else AppColors.light
     val systemUiController = rememberSystemUiController()
+
     SideEffect {
         systemUiController.setStatusBarColor(
-            color = colorScheme.surface.copy(alpha = 0f),
+            color = Color.Transparent,
             darkIcons = !darkTheme
         )
         systemUiController.setNavigationBarColor(
@@ -34,11 +38,14 @@ fun TemplateAppTheme(
         )
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = AppTypography,
-        content = content
-    )
+    CompositionLocalProvider(LocalAppColors provides appColors) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = appTypography,
+            shapes = appShapes,
+            content = content
+        )
+    }
 }
 
 @Composable

@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation("androidx.compose.material:material-icons-extended")
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.activity.compose)
@@ -113,7 +114,10 @@ dependencies {
     implementation(libs.androidx.biometric)
     implementation(libs.androidx.biometric.ktx)
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
-    
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
+
     implementation(libs.androidx.hilt.navigation.compose)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

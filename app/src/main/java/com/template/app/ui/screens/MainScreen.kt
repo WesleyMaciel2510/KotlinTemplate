@@ -15,48 +15,57 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.template.app.navigation.Screen
+import com.template.app.financeiro.presentation.FinanceiroScreen
+import com.template.app.home.presentation.HomeScreen
+import com.template.app.qrcode.QrCodeReaderScreen
+import com.template.app.ui.navigation.DetailsRoute
+import com.template.app.ui.navigation.FinanceiroRoute
+import com.template.app.ui.navigation.HomeRoute
+import com.template.app.ui.navigation.ProfileRoute
 import com.template.app.ui.navigation.QrCodeRoute
+import com.template.app.ui.navigation.RecebivelDetailRoute
+import com.template.app.ui.navigation.RecebiveisListRoute
+import com.template.app.ui.navigation.SearchRoute
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    val selectedDestination = remember { mutableStateOf(Screen.Home) }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Kotlin", fontSize = 20.sp) },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onSurface
-                )
-            )
-        },
         bottomBar = {
             NavigationBar(
                 modifier = Modifier.fillMaxWidth(),
                 containerColor = MaterialTheme.colorScheme.surfaceContainer
             ) {
-                val screens = Screen.values()
-                screens.forEach { screen ->
+                Screen.entries.forEach { screen ->
+                    val isSelected = currentDestination?.hasRoute(screen.route::class) == true
                     NavigationBarItem(
                         icon = { Icon(imageVector = screen.icon, contentDescription = screen.contentDescription) },
-                        label = { Text(text = screen.contentDescription, fontSize = 12.sp) },
-                        selected = selectedDestination.value == screen,
+                        label = {
+                            Text(
+                                text = screen.contentDescription,
+                                style = MaterialTheme.typography.labelMedium
+                            )
+                        },
+                        selected = isSelected,
                         onClick = {
-                            selectedDestination.value = screen
                             navController.navigate(screen.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
                                 launchSingleTop = true
                                 restoreState = true
                             }
@@ -73,28 +82,54 @@ fun MainScreen() {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = Screen.Home.route, modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPadding)
+        NavHost(
+            navController = navController,
+            startDestination = HomeRoute,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
         ) {
-            composable(route = Screen.Home.route) {
-                HomeContentScreen(
+            composable<HomeRoute> {
+                HomeScreen(
                     onNavigateToQrScanner = {
-                        navController.navigate("qrcode")
+                        navController.navigate(QrCodeRoute)
                     }
                 )
             }
-            composable(route = Screen.Search.route) {
+            composable<SearchRoute> {
                 SearchContentScreen()
             }
-            composable(route = Screen.Favorites.route) {
-                FavoritesContentScreen()
+            composable<FinanceiroRoute> {
+                FinanceiroScreen()
             }
-            composable(route = Screen.Profile.route) {
+            composable<ProfileRoute> {
                 ProfileContentScreen()
             }
-            composable(route = "qrcode") {
-                com.template.app.qrcode.QrCodeReaderScreen(
+            composable<DetailsRoute> { backStackEntry ->
+                val route: DetailsRoute = backStackEntry.toRoute()
+                DetailsScreen(
+                    itemId = route.id,
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable<QrCodeRoute> {
+                QrCodeReaderScreen(
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable<RecebiveisListRoute> {
+                RecebiveisListScreen(
+                    onRecebivelClick = { id ->
+                        navController.navigate(RecebivelDetailRoute(id))
+                    }
+                )
+            }
+            composable<RecebivelDetailRoute> {
+                RecebivelDetailScreen(
                     onNavigateBack = {
                         navController.popBackStack()
                     }

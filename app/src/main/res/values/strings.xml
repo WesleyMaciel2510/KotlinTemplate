@@ -2,6 +2,28 @@
     <string name="app_name">Kotlin</string>
     <string name="home_tab">Home</string>
     <string name="search_tab">Search</string>
-    <string name="favorites_tab">Favorites</string>
+    <string name="financeiro_tab">Financeiro</string>
     <string name="profile_tab">Profile</string>
+
+    <!-- Biometric Authentication -->
+    <string name="biometric_title">Autenticação por impressão digital</string>
+    <string name="biometric_subtitle">Confirme sua identidade para continuar</string>
+    <string name="biometric_button_text">Usar impressão digital</string>
+    <string name="biometric_cancel_button">Cancelar</string>
+    <string name="biometric_screen_title">Entrar com impressão digital</string>
+    <string name="biometric_screen_description">Use sua impressão digital para acessar sua conta com segurança.</string>
+    <string name="biometric_authenticating">Autenticando…</string>
+    <string name="biometric_no_hardware">Este dispositivo não possui leitor de impressão digital.</string>
+    <string name="biometric_no_enrolled">Nenhuma impressão digital cadastrada.</string>
+    <string name="biometric_enroll_action">Cadastrar impressão digital</string>
+    <string name="biometric_locked_out">Autenticação por impressão digital temporariamente indisponível. Tente novamente mais tarde.</string>
+    <string name="biometric_permanent_lockout">Impressão digital bloqueada permanentemente. Use as configurações do dispositivo para desbloquear.</string>
+    <string name="biometric_hardware_unavailable">Sensor de impressão digital indisponível no momento.</string>
+    <string name="biometric_error_generic">Erro na autenticação. Tente novamente.</string>
+    <string name="biometric_retry">Tentar novamente</string>
+    <string name="biometric_fallback_login">Entrar com senha</string>
+    <string name="biometric_accessibility_fingerprint_icon">Ícone de impressão digital</string>
+    <string name="biometric_accessibility_authenticate_button">Botão para autenticar com impressão digital</string>
+    <string name="biometric_accessibility_retry_button">Botão para tentar autenticar novamente</string>
+    <string name="biometric_accessibility_fallback_button">Botão para entrar com senha</string>
 </resources>
