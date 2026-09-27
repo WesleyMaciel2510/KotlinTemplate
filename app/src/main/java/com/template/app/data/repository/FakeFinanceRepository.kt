@@ -17,6 +17,10 @@ import javax.inject.Singleton
 @Singleton
 class FakeFinanceRepository @Inject constructor() : FinanceRepository {
 
+    override fun getUserName(): Flow<String> = flow {
+        emit("Usuário")
+    }
+
     override fun getKpiMetrics(): Flow<List<KpiMetric>> = flow {
         delay(400)
         emit(

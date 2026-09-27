@@ -34,15 +34,17 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 combine(
+                    financeRepository.getUserName(),
                     financeRepository.getKpiMetrics(),
                     financeRepository.getMonthlyReceiptsTrend(),
                     financeRepository.getTopClients(),
                     financeRepository.getRecentActivities()
-                ) { kpis, receipts, clients, activities ->
+                ) { userName, kpis, receipts, clients, activities ->
                     if (kpis.isEmpty()) {
                         HomeUiState.Empty
                     } else {
                         HomeUiState.Success(
+                            userName = userName,
                             kpis = kpis,
                             monthlyReceipts = receipts,
                             topClients = clients,

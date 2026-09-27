@@ -9,6 +9,7 @@ import com.template.app.domain.model.TopClient
 import kotlinx.coroutines.flow.Flow
 
 interface FinanceRepository {
+    fun getUserName(): Flow<String>
     fun getKpiMetrics(): Flow<List<KpiMetric>>
     fun getMonthlyReceiptsTrend(): Flow<List<MonthlyTrendPoint>>
     fun getTopClients(): Flow<List<TopClient>>

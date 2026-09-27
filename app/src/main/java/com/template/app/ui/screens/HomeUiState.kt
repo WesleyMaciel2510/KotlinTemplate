@@ -17,6 +17,7 @@ sealed interface HomeUiState {
 
     @Immutable
     data class Success(
+        val userName: String,
         val kpis: List<KpiMetric>,
         val monthlyReceipts: List<MonthlyTrendPoint>,
         val topClients: List<TopClient>,
