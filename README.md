@@ -4,7 +4,9 @@ A modern Android Homescreen Template built with 100% Kotlin and Jetpack Compose,
 
 ## App Preview
 
-![Homescreen Preview](app/src/main/res/drawable/homescreen_preview.png)
+![Visão geral](app/src/main/res/drawable/homescreen_preview.png)
+
+![Análises financeiras](app/src/main/res/drawable/financial_preview.png)
 
 ## Tech Stack & Architecture
 
@@ -18,5 +20,5 @@ A modern Android Homescreen Template built with 100% Kotlin and Jetpack Compose,
 
 1. **Home** (Dashboard / Main Feed)
 2. **Search** (Discovery / Filter)
-3. **Favorites** (Bookmarked Items)
+3. **Financeiro** (Financial analytics)
 4. **Profile** (Settings & Account)

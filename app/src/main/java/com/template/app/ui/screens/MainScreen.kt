@@ -23,9 +23,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.template.app.navigation.Screen
 import com.template.app.financeiro.presentation.FinanceiroScreen
-import com.template.app.home.presentation.HomeScreen
+import com.template.app.navigation.Screen
 import com.template.app.qrcode.QrCodeReaderScreen
 import com.template.app.ui.navigation.DetailsRoute
 import com.template.app.ui.navigation.FinanceiroRoute
@@ -54,18 +53,11 @@ fun MainScreen() {
                     val isSelected = currentDestination?.hasRoute(screen.route::class) == true
                     NavigationBarItem(
                         icon = { Icon(imageVector = screen.icon, contentDescription = screen.contentDescription) },
-                        label = {
-                            Text(
-                                text = screen.contentDescription,
-                                style = MaterialTheme.typography.labelMedium
-                            )
-                        },
+                        label = { Text(text = screen.contentDescription, style = MaterialTheme.typography.labelMedium) },
                         selected = isSelected,
                         onClick = {
                             navController.navigate(screen.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
+                                popUpTo(navController.graph.findStartDestination().id) { saveState = true }
                                 launchSingleTop = true
                                 restoreState = true
                             }
@@ -85,55 +77,28 @@ fun MainScreen() {
         NavHost(
             navController = navController,
             startDestination = HomeRoute,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+            modifier = Modifier.fillMaxSize().padding(innerPadding)
         ) {
             composable<HomeRoute> {
-                HomeScreen(
-                    onNavigateToQrScanner = {
-                        navController.navigate(QrCodeRoute)
-                    }
+                HomeContentScreen(
+                    onNavigateToRecebiveis = { navController.navigate(RecebiveisListRoute) }
                 )
             }
-            composable<SearchRoute> {
-                SearchContentScreen()
-            }
-            composable<FinanceiroRoute> {
-                FinanceiroScreen()
-            }
-            composable<ProfileRoute> {
-                ProfileContentScreen()
-            }
+            composable<SearchRoute> { SearchContentScreen() }
+            composable<FinanceiroRoute> { FinanceiroScreen() }
+            composable<ProfileRoute> { ProfileContentScreen(onNavigateToQrScanner = { navController.navigate(QrCodeRoute) }) }
             composable<DetailsRoute> { backStackEntry ->
                 val route: DetailsRoute = backStackEntry.toRoute()
-                DetailsScreen(
-                    itemId = route.id,
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    }
-                )
+                DetailsScreen(itemId = route.id, onNavigateBack = { navController.popBackStack() })
             }
             composable<QrCodeRoute> {
-                QrCodeReaderScreen(
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    }
-                )
+                QrCodeReaderScreen(onNavigateBack = { navController.popBackStack() })
             }
             composable<RecebiveisListRoute> {
-                RecebiveisListScreen(
-                    onRecebivelClick = { id ->
-                        navController.navigate(RecebivelDetailRoute(id))
-                    }
-                )
+                RecebiveisListScreen(onRecebivelClick = { id -> navController.navigate(RecebivelDetailRoute(id)) })
             }
             composable<RecebivelDetailRoute> {
-                RecebivelDetailScreen(
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    }
-                )
+                RecebivelDetailScreen(onNavigateBack = { navController.popBackStack() })
             }
         }
     }
@@ -141,7 +106,5 @@ fun MainScreen() {
 
 @Composable
 fun MainScreenPreview() {
-    com.template.app.ui.theme.TemplateAppTheme {
-        MainScreen()
-    }
+    com.template.app.ui.theme.TemplateAppTheme { MainScreen() }
 }
